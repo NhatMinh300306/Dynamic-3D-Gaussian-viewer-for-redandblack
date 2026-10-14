@@ -1,0 +1,22 @@
+{
+  "name": "gaussian-web-studio",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Dynamic Gaussian viewer with Spark, frame buffering and import tools",
+  "scripts": {
+    "start": "node scripts/server.mjs",
+    "dev": "node scripts/server.mjs",
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/server.mjs --dist",
+    "test": "node --test tests/*.test.mjs",
+    "demo": "python3 scripts/make_demo.py"
+  },
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "dependencies": {
+    "@sparkjsdev/spark": "2.3.1",
+    "three": "0.180.0"
+  }
+}

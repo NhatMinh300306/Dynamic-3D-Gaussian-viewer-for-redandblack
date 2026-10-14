@@ -1,0 +1,9 @@
+node_modules/
+dist/
+__pycache__/
+public/data/*
+!public/data/demo/
+*.log
+model/
+.venv/
+viewer.config.json

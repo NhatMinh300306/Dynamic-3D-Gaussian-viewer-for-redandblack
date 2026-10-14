@@ -1,0 +1,389 @@
+{
+  "version": 1,
+  "mode": "sequence",
+  "name": "Kinetic study",
+  "synthetic": true,
+  "fps": 24,
+  "defaultQuality": "detail",
+  "description": "Demo Gaussian tổng hợp · 24 frame · Không phải dữ liệu 8i redandblack",
+  "qualities": [
+    {
+      "id": "preview",
+      "label": "Preview · 480 splats"
+    },
+    {
+      "id": "detail",
+      "label": "Detail · 2,400 splats"
+    }
+  ],
+  "transform": {
+    "rotationDegrees": [
+      0,
+      0,
+      0
+    ],
+    "scale": 1
+  },
+  "frames": [
+    {
+      "id": 0,
+      "assets": {
+        "preview": {
+          "url": "preview/000000.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000000.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 1,
+      "assets": {
+        "preview": {
+          "url": "preview/000001.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000001.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "assets": {
+        "preview": {
+          "url": "preview/000002.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000002.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "assets": {
+        "preview": {
+          "url": "preview/000003.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000003.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 4,
+      "assets": {
+        "preview": {
+          "url": "preview/000004.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000004.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "assets": {
+        "preview": {
+          "url": "preview/000005.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000005.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "assets": {
+        "preview": {
+          "url": "preview/000006.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000006.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "assets": {
+        "preview": {
+          "url": "preview/000007.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000007.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 8,
+      "assets": {
+        "preview": {
+          "url": "preview/000008.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000008.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 9,
+      "assets": {
+        "preview": {
+          "url": "preview/000009.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000009.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 10,
+      "assets": {
+        "preview": {
+          "url": "preview/000010.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000010.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 11,
+      "assets": {
+        "preview": {
+          "url": "preview/000011.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000011.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 12,
+      "assets": {
+        "preview": {
+          "url": "preview/000012.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000012.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 13,
+      "assets": {
+        "preview": {
+          "url": "preview/000013.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000013.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 14,
+      "assets": {
+        "preview": {
+          "url": "preview/000014.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000014.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 15,
+      "assets": {
+        "preview": {
+          "url": "preview/000015.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000015.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 16,
+      "assets": {
+        "preview": {
+          "url": "preview/000016.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000016.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 17,
+      "assets": {
+        "preview": {
+          "url": "preview/000017.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000017.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 18,
+      "assets": {
+        "preview": {
+          "url": "preview/000018.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000018.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 19,
+      "assets": {
+        "preview": {
+          "url": "preview/000019.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000019.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 20,
+      "assets": {
+        "preview": {
+          "url": "preview/000020.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000020.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 21,
+      "assets": {
+        "preview": {
+          "url": "preview/000021.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000021.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 22,
+      "assets": {
+        "preview": {
+          "url": "preview/000022.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000022.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    },
+    {
+      "id": 23,
+      "assets": {
+        "preview": {
+          "url": "preview/000023.ply",
+          "bytes": 27280,
+          "format": "ply"
+        },
+        "detail": {
+          "url": "detail/000023.ply",
+          "bytes": 134801,
+          "format": "ply"
+        }
+      }
+    }
+  ]
+}

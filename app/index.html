@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111713">
+  <meta name="description" content="Xem và phát chuỗi Gaussian động từ Dynamic-LapisGS và CAGS với renderer Spark.">
+  <title>Gaussian Studio — Dynamic scene viewer</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23111713'/%3E%3Ccircle cx='32' cy='32' r='18' fill='%23c2e58b'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./style.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three/build/three.module.js","three/addons/":"./vendor/three/examples/jsm/","@sparkjsdev/spark":"./vendor/spark/spark.module.js"}}</script>
+</head>
+<body>
+  <main id="stage" tabindex="0" aria-label="Khung nhìn 3D. Kéo chuột để xoay; cuộn để zoom.">
+    <header class="topbar overlay">
+      <a class="brand" href="./" aria-label="Gaussian Studio"><span class="brand-icon">✳</span><span>GAUSSIAN <span class="brand-light">STUDIO</span><small id="scene-name">redandblack</small></span></a>
+      <div class="top-tools">
+        <div class="resolution-control" aria-label="Chọn resolution"><span class="control-caption">RES</span><div id="quality-buttons" class="segmented"></div><select id="quality" aria-label="Resolution" hidden></select></div>
+        <span class="fps-badge" title="Số lần vẽ mỗi giây, khác FPS nội dung"><strong id="render-fps">—</strong> <span>render fps</span></span>
+        <button id="panel-toggle" class="icon-button" aria-controls="controls-panel" aria-expanded="false" title="Tọa độ và tùy chỉnh">⚙<span class="sr-only">Tùy chỉnh</span></button>
+      </div>
+    </header>
+    <div class="scene-status overlay"><span class="live-dot"></span><span id="status" role="status" aria-live="polite">Đang mở redandblack…</span></div>
+    <div id="loading" class="loading-card overlay" role="status"><span class="spinner"></span><strong>Đang mở cảnh 3D</strong><span>Tự phát khi frame đầu sẵn sàng</span></div>
+    <div class="view-tools overlay" aria-label="Điều khiển camera">
+      <button id="zoom-in" class="icon-button" aria-label="Phóng to" title="Phóng to (+)">+</button>
+      <button id="zoom-out" class="icon-button" aria-label="Thu nhỏ" title="Thu nhỏ (-)">−</button>
+      <button id="fit" class="icon-button" aria-label="Vừa khung hình" title="Vừa khung hình (F)">⌖</button>
+      <button id="fullscreen" class="icon-button" aria-label="Toàn màn hình" title="Toàn màn hình">⛶</button>
+    </div>
+    <aside id="controls-panel" class="controls-panel overlay" hidden aria-label="Tùy chỉnh cảnh">
+      <div class="panel-title"><strong>Tùy chỉnh</strong><button id="panel-close" class="quiet" aria-label="Đóng tùy chỉnh">✕</button></div>
+      <label for="orientation">Hệ trục</label><select id="orientation"><option value="manifest">Theo manifest</option><option value="y">Y-up</option><option value="z">Z-up → Y-up</option><option value="flip">Lật 180° quanh X</option><option value="custom">Tùy chỉnh XYZ</option></select>
+      <fieldset><legend>Xoay mô hình · độ</legend><div class="xyz"><label>X<input id="rotation-x" type="number" step="1" value="-90"></label><label>Y<input id="rotation-y" type="number" step="1" value="0"></label><label>Z<input id="rotation-z" type="number" step="1" value="0"></label></div></fieldset>
+      <fieldset><legend>Vị trí mô hình</legend><div class="xyz"><label>X<input id="position-x" type="number" step="0.1" value="0"></label><label>Y<input id="position-y" type="number" step="0.1" value="0"></label><label>Z<input id="position-z" type="number" step="0.1" value="0"></label></div></fieldset>
+      <div class="two-col"><div><label for="model-scale">Tỷ lệ mô hình</label><input id="model-scale" type="number" min="0.0001" step="0.1" value="1"></div><button id="reset-transform" class="secondary">Khôi phục</button></div>
+      <div class="two-col"><label class="toggle"><input id="grid" type="checkbox" checked><span>Lưới</span></label><label class="toggle"><input id="loop" type="checkbox" checked><span>Lặp</span></label></div>
+      <button id="rotate" class="secondary wide" aria-pressed="false">Tự xoay: tắt</button>
+      <p class="hint">Tọa độ được lưu trên trình duyệt này và dùng cho toàn bộ frame.</p>
+      <details><summary>Hiệu năng & thông số</summary><div class="details-body">
+        <label for="ahead">Tải trước <output id="ahead-out">3 frame</output></label><input id="ahead" type="range" min="1" max="8" value="3">
+        <label for="pixel-ratio">Độ phân giải render</label><select id="pixel-ratio"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option></select>
+        <div id="lod-controls" hidden><label for="lod-budget">Ngân sách LoD · RAD</label><select id="lod-budget"><option value="250000">250K splats</option><option value="600000" selected>600K splats</option><option value="1000000">1M splats</option><option value="1500000">1.5M splats</option></select></div>
+        <dl class="metrics"><div><dt>Gaussians</dt><dd id="splats">—</dd></div><div><dt>Buffer</dt><dd id="buffer">0 s</dd></div><div><dt>Tải file gần nhất</dt><dd id="throughput">—</dd></div></dl>
+        <p id="network-note" class="hint">Có thể gồm cache / localhost</p><p id="stalls" class="hint">Stall: 0 · 0.00 s</p><button id="export" class="secondary wide">Xuất CSV</button>
+      </div></details>
+      <details><summary>Nguồn dữ liệu</summary><div class="details-body">
+        <span id="mode" class="eyebrow">DYNAMIC GAUSSIAN SEQUENCE</span><span id="source-badge" class="tag">DỮ LIỆU CỦA BẠN</span>
+        <p id="detail" class="hint">Tự mở redandblack từ thư mục model.</p><p id="source-warning" class="hint warning"></p>
+        <label for="manifest-url">Manifest / scene URL</label><div class="input-row"><input id="manifest-url" spellcheck="false"><button id="load" class="secondary" aria-label="Mở manifest">↗</button></div>
+        <div class="two-col"><button id="pick" class="secondary">Mở PLY / SPZ</button><button id="default-scene" class="secondary">redandblack</button></div>
+        <input id="files" type="file" accept=".ply,.spz,.splat,.ksplat" multiple hidden>
+        <div class="two-col"><button id="demo" class="quiet">Demo tổng hợp</button><button id="help" class="quiet">Hướng dẫn</button></div>
+      </div></details>
+    </aside>
+    <div class="bottom-ui overlay">
+      <div class="camera-hint">Kéo để xoay <span>·</span> Cuộn để zoom <span>·</span> Chuột phải để dịch</div>
+      <div class="transport">
+        <div class="transport-buttons"><button id="prev" class="quiet" aria-label="Frame trước">❮</button><button id="play" class="play" aria-label="Phát">▶</button><button id="next" class="quiet" aria-label="Frame tiếp">❯</button></div>
+        <div class="timeline"><div class="timeline-label"><strong id="frame-label">FRAME —</strong><span id="time-label">0.00 / 0.00 s</span></div><input id="seek" type="range" min="0" max="1" value="0" aria-label="Tua frame"><div id="buffer-strip" class="buffer-strip" aria-label="Frame đã sẵn sàng"></div></div>
+        <div class="playback-options"><label for="fps-input">FPS nội dung<input id="fps-input" type="number" min="1" max="120" value="30"></label><label for="speed">Speed<select id="speed"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label></div>
+      </div>
+    </div>
+    <div id="error" class="error overlay" hidden><strong>Chưa mở được dữ liệu</strong><p id="error-text"></p><button id="retry" class="secondary">Thử lại</button></div>
+    <div id="boot-failure" class="error overlay" hidden>Không tải được thư viện. Dùng <code>START_WINDOWS.cmd</code>, hoặc chạy <code>npm.cmd ci</code> và <code>npm.cmd start</code>.</div>
+  </main>
+  <dialog id="help-dialog"><button id="close-help" class="dialog-close" aria-label="Đóng">×</button><h2>Gaussian Studio</h2><p>Web tự mở và phát redandblack. Các nút res1 / res2 / res4 / res8 đổi mức dữ liệu và giữ cùng thời điểm của chuyển động.</p><p>Nhấn ⚙ để chỉnh XYZ, hệ trục, lưới và hiệu năng. Tọa độ được lưu trên trình duyệt; FPS và speed khởi động ở tốc độ của manifest và 1×.</p><p>Chuột trái: xoay · chuột phải: dịch · cuộn: zoom. Phím Space: phát/dừng · F: vừa khung · +/−: zoom · ←/→: từng frame.</p><p>CAGS cần <code>point_cloud.ply</code> đã giải mã. Xem <code>HUONG_DAN_WINDOWS_V2.md</code> trong bộ code.</p></dialog>
+  <script type="module">import('./src/main.js').catch(error => { document.querySelector('#loading').hidden=true; document.querySelector('#boot-failure').hidden=false; console.error(error); });</script>
+</body>
+</html>

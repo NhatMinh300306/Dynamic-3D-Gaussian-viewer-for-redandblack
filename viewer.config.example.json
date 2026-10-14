@@ -1,0 +1,8 @@
+{
+  "iteration": 30000,
+  "fps": 30,
+  "defaultQuality": "res8",
+  "rotationDegrees": [-90, 0, 0],
+  "position": [0, 0, 0],
+  "scale": 1
+}

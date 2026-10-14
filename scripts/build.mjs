@@ -1,0 +1,17 @@
+import {cp,mkdir,rm,readFile,writeFile} from 'node:fs/promises';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const dist=path.join(root,'dist');
+await rm(dist,{recursive:true,force:true});await mkdir(dist,{recursive:true});
+await cp(path.join(root,'app'),dist,{recursive:true});
+await cp(path.join(root,'public'),dist,{recursive:true});
+await mkdir(path.join(dist,'vendor/three'),{recursive:true});
+await cp(path.join(root,'node_modules/three/build'),path.join(dist,'vendor/three/build'),{recursive:true});
+await cp(path.join(root,'node_modules/three/examples/jsm'),path.join(dist,'vendor/three/examples/jsm'),{recursive:true});
+await cp(path.join(root,'node_modules/three/LICENSE'),path.join(dist,'vendor/three/LICENSE'));
+await mkdir(path.join(dist,'vendor/spark'),{recursive:true});
+await cp(path.join(root,'node_modules/@sparkjsdev/spark/dist/spark.module.js'),path.join(dist,'vendor/spark/spark.module.js'));
+await cp(path.join(root,'node_modules/@sparkjsdev/spark/LICENSE'),path.join(dist,'vendor/spark/LICENSE'));
+await cp(path.join(root,'THIRD_PARTY.md'),path.join(dist,'THIRD_PARTY.md'));
+console.log('Build complete: dist/ (static files, no external CDN at runtime).');
